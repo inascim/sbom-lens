@@ -38,7 +38,11 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
   3. User can drag-and-drop (or click to select) a CycloneDX JSON file on the Dashboard and have it added to the library
   4. When uploading a file whose SHA-256 hash matches an existing SBOM, the user sees a prompt offering to create a copy or cancel
   5. User can confirm copy creation or dismiss the duplicate prompt without corrupting existing data
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Fix getStats() mutation bug + create SBOMCard component
+- [ ] 02-02-PLAN.md — Replace dashboard/index.js with live SBOM library home page
 
 ### Phase 3: Graph Editor Integration
 **Goal**: Users can open any library SBOM in the Graph Editor and save edits back to the library
@@ -67,6 +71,6 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | - | Complete | 2026-03-05 |
-| 2. Dashboard Integration | 0/TBD | Not started | - |
+| 2. Dashboard Integration | 0/2 | Planned | - |
 | 3. Graph Editor Integration | 0/TBD | Not started | - |
 | 4. Vulnerabilities Integration | 0/TBD | Not started | - |
