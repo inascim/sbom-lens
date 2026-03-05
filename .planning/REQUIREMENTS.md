@@ -7,11 +7,11 @@
 
 ### Dashboard
 
-- [ ] **DASH-01**: User can see SBOM library stats (count, total components) on the dashboard
-- [ ] **DASH-02**: User can see a card for each SBOM in the library (name, component count, dates)
-- [ ] **DASH-03**: User can upload an SBOM from the dashboard with drag-and-drop
-- [ ] **DASH-04**: User sees a duplicate detection prompt when uploading an SBOM with a matching hash
-- [ ] **DASH-05**: User can create a copy of a duplicate SBOM or cancel the upload
+- [x] **DASH-01**: User can see SBOM library stats (count, total components) on the dashboard
+- [x] **DASH-02**: User can see a card for each SBOM in the library (name, component count, dates)
+- [x] **DASH-03**: User can upload an SBOM from the dashboard with drag-and-drop
+- [x] **DASH-04**: User sees a duplicate detection prompt when uploading an SBOM with a matching hash
+- [x] **DASH-05**: User can create a copy of a duplicate SBOM or cancel the upload
 
 ### Graph Editor
 
@@ -50,11 +50,11 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DASH-01 | Phase 2 | Pending |
-| DASH-02 | Phase 2 | Pending |
-| DASH-03 | Phase 2 | Pending |
-| DASH-04 | Phase 2 | Pending |
-| DASH-05 | Phase 2 | Pending |
+| DASH-01 | Phase 2 | Complete |
+| DASH-02 | Phase 2 | Complete |
+| DASH-03 | Phase 2 | Complete |
+| DASH-04 | Phase 2 | Complete |
+| DASH-05 | Phase 2 | Complete |
 | GRAPH-01 | Phase 3 | Pending |
 | GRAPH-02 | Phase 3 | Pending |
 | GRAPH-03 | Phase 3 | Pending |

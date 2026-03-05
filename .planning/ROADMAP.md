@@ -11,7 +11,7 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 1: Foundation** - Data layer, hooks, SBOMSelector, SBOMUploader (COMPLETE)
-- [ ] **Phase 2: Dashboard Integration** - Wire SBOM library stats, cards, and upload flow into the Dashboard page
+- [x] **Phase 2: Dashboard Integration** - Wire SBOM library stats, cards, and upload flow into the Dashboard page (completed 2026-03-05)
 - [ ] **Phase 3: Graph Editor Integration** - Add SBOMSelector to Graph Editor; implement Save and Save As against the library
 - [ ] **Phase 4: Vulnerabilities Integration** - Add multi-SBOM selector, merged vulnerability view, and cross-SBOM attribution
 
@@ -71,6 +71,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | - | Complete | 2026-03-05 |
-| 2. Dashboard Integration | 1/2 | In progress | - |
+| 2. Dashboard Integration | 2/2 | Complete   | 2026-03-05 |
 | 3. Graph Editor Integration | 0/TBD | Not started | - |
 | 4. Vulnerabilities Integration | 0/TBD | Not started | - |
