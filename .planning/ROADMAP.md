@@ -41,7 +41,7 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Fix getStats() mutation bug + create SBOMCard component
+- [x] 02-01-PLAN.md — Fix getStats() mutation bug + create SBOMCard component
 - [ ] 02-02-PLAN.md — Replace dashboard/index.js with live SBOM library home page
 
 ### Phase 3: Graph Editor Integration
@@ -71,6 +71,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | - | Complete | 2026-03-05 |
-| 2. Dashboard Integration | 0/2 | Planned | - |
+| 2. Dashboard Integration | 1/2 | In progress | - |
 | 3. Graph Editor Integration | 0/TBD | Not started | - |
 | 4. Vulnerabilities Integration | 0/TBD | Not started | - |
