@@ -1,227 +1,302 @@
-# [Material Dashboard 2 React](http://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-mdr) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://www.creative-tim.com/product/material-dashboard-react&text=Check%20Material%20Dashboard%202%20react%20made%20by%20@CreativeTim%20#webdesign%20#dashboard%20#materialdesign%20#react%20https://www.creative-tim.com/product/material-dashboard-react)
+# SBOM Lens
 
-![version](https://img.shields.io/badge/version-2.2.0-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/material-dashboard-react.svg)](https://github.com/creativetimofficial/material-dashboard-react/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/material-dashboard-react.svg)](https://github.com/creativetimofficial/material-dashboard-react/issues?q=is%3Aissue+is%3Aclosed)
+A comprehensive Software Bill of Materials (SBOM) analysis and vulnerability management portal built with React and Material-UI.
 
-![Image](https://s3.amazonaws.com/creativetim_bucket/products/71/original/material-dashboard-react.jpg?1638950990)
+## Overview
 
-Material Dashboard 2 React is our newest free MUI Admin Template based on React. If you’re a developer looking to create an admin dashboard that is developer-friendly, rich with features, and highly customisable, here is your match. Our innovative MUI & React dashboard comes with a beautiful design inspired by Google's Material Design and it will help you create stunning websites & web apps to delight your clients.
+SBOM Lens is a modern web application designed to help organizations ingest, visualize, and analyze Software Bill of Materials (SBOM) data. It provides interactive graph visualization for dependency analysis and integrated vulnerability management with multi-source threat intelligence.
 
-**Fully Coded Elements**
-Material Dashboard 2 React is built with over 70 frontend individual elements, like buttons, inputs, navbars, nav tabs, cards, or alerts, giving you the freedom of choosing and combining. All components can take variations in color, which you can easily modify using MUI styled() API and sx prop. You will save a lot of time going from prototyping to full-functional code because all elements are implemented.
+### Key Features
 
-This free MUI & React Dashboard is coming with prebuilt design blocks, so the development process is seamless,
-switching from our pages to the real website is very easy to be done.
+- **📊 Interactive SBOM Graph Visualization**
+  - Cytoscape.js-based interactive dependency graph
+  - Multiple layout algorithms (breadth-first, concentric, force-directed)
+  - Zoom controls and fit-to-view functionality
+  - Drag-and-drop component management
+  - Dynamic node creation and relationship mapping
 
-Special thanks go to:
+- **🔒 Vulnerability Management**
+  - Comprehensive vulnerability tracking dashboard
+  - Dual visualization modes (stacked bar chart + donut chart)
+  - Sortable, filterable, paginated vulnerability table
+  - Manual vulnerability entry with validation
+  - Remediation status tracking
+  - Inline status updates and deletion
+  - Timeline-based audit trail for changes
 
-- [Nepcha Analytics](https://nepcha.com?ref=readme) for the analytics tool. Nepcha is already integrated with Material Dashboard React. You can use it to gain insights into your sources of traffic.
+- **🔗 Multi-Source Vulnerability Data Integration**
+  - NVD (National Vulnerability Database) API support
+  - GitHub Security Advisories integration
+  - OSV (Open Source Vulnerabilities) free API
+  - Batch vulnerability import and synchronization
+  - Vulnerability normalization across sources
 
-**Documentation built by Developers**
+- **📈 Data Management**
+  - SBOM import/export in CycloneDX JSON format
+  - Vulnerability report generation
+  - Local data persistence via browser localStorage
+  - Vulnerability timeline tracking with status history
 
-Each element is well presented in very complex documentation.
+## Getting Started
 
-You can read more about the [documentation here](https://www.creative-tim.com/learning-lab/react/overview/material-dashboard/).
+### Prerequisites
 
-**Example Pages**
+- Node.js 14+ and npm
+- Modern web browser with ES6+ support
 
-If you want to get inspiration or just show something directly to your clients, you can jump-start your development with our pre-built example pages. You will be able to quickly set up the basic structure for your web project.
+### Installation
 
-View [example pages here](https://demos.creative-tim.com/material-dashboard-react/#/dashboard).
+```bash
+# Clone the repository
+git clone <repository-url>
+cd sbom-lens
 
-**HELPFUL LINKS**
+# Install dependencies
+npm install
 
-- View [Github Repository](https://github.com/creativetimofficial/material-dashboard-react)
-- Check [FAQ Page](https://www.creative-tim.com/faq)
+# Start the development server
+npm start
+```
 
-#### Special thanks
+The application will open at `http://localhost:3000`
 
-During the development of this dashboard, we have used many existing resources from awesome developers. We want to thank them for providing their tools open source:
+### Build for Production
 
-- [MUI](https://mui.com/) - The React UI library for faster and easier web development.
-- [React ChartJS 2](http://reactchartjs.github.io/react-chartjs-2/#/) - Simple yet flexible React charting for designers & developers.
-- [ChromaJS](https://gka.github.io/chroma.js/) - A small-ish zero-dependency JavaScript library for all kinds of color conversions and color scales.
+```bash
+npm run build
+```
 
-Let us know your thoughts below. And good luck with development!
+This creates an optimized production build in the `build/` directory.
 
-## Table of Contents
-
-- [Versions](#versions)
-- [Demo](#demo)
-- [Quick Start](#quick-start)
-- [Deploy](#deploy)
-- [Documentation](#documentation)
-- [File Structure](#file-structure)
-- [Browser Support](#browser-support)
-- [Resources](#resources)
-- [Reporting Issues](#reporting-issues)
-- [Technical Support or Questions](#technical-support-or-questions)
-- [Licensing](#licensing)
-- [Useful Links](#useful-links)
-
-## Versions
-
-[<img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/logos/react-logo.png?raw=true" width="60" height="60" />](https://www.creative-tim.com/product/material-dashboard-react?ref=readme-mdr)
-
-| React |
-| ----- |
-
-| [![Material Dashboard React](https://s3.amazonaws.com/creativetim_bucket/products/71/thumb/material-dashboard-react.jpg?1638950990)](http://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-mdr)
-
-## Demo
-
-- [Dashboard](http://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-sudr)
-- [Profile](https://demos.creative-tim.com/material-dashboard-react/#/profile?ref=readme-sudr)
-- [RTL](https://demos.creative-tim.com/material-dashboard-react/#/rtl?ref=readme-sudr)
-- [Sign In](https://demos.creative-tim.com/material-dashboard-react/#/authentication/sign-in?ref=readme-sudr)
-- [Sign Up](https://demos.creative-tim.com/material-dashboard-react/#/authentication/sign-up?ref=readme-sudr)
-
-[View More](https://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-mdr).
-
-## Quick start
-
-Quick start options:
-
-- Download from [Creative Tim](https://www.creative-tim.com/product/material-dashboard-react?ref=readme-mdr).
-
-## Terminal Commands
-
-1. Download and Install NodeJs LTS version from [NodeJs Official Page](https://nodejs.org/en/download/).
-2. Navigate to the root ./ directory of the product and run `yarn install` or `npm install` to install our local dependencies.
-
-## Deploy
-
-:rocket: You can deploy your own version of the template to Genezio with one click:
-
-[![Deploy to Genezio](https://raw.githubusercontent.com/Genez-io/graphics/main/svg/deploy-button.svg)](https://app.genez.io/start/deploy?repository=https://github.com/creativetimofficial/material-dashboard-react&utm_source=github&utm_medium=referral&utm_campaign=github-creativetim&utm_term=deploy-project&utm_content=button-head)
-
-## Documentation
-
-The documentation for the Material Dashboard is hosted at our [website](https://www.creative-tim.com/learning-lab/react/overview/material-dashboard/?ref=readme-mdr).
-
-### What's included
-
-Within the download you'll find the following directories and files:
+## Project Structure
 
 ```
-material-dashboard-react
-    ├── public
-    │   ├── apple-icon.png
-    │   ├── favicon.png
-    │   ├── index.html
-    │   ├── manifest.json
-    │   └── robots.txt
-    ├── src
-    │   ├── assets
-    │   │   ├── images
-    │   │   └── theme
-    │   │       ├── base
-    │   │       ├── components
-    │   │       ├── functions
-    │   │       ├── index.js
-    │   │       └── theme-rtl.js
-    │   │   └── theme-dark
-    │   │       ├── base
-    │   │       ├── components
-    │   │       ├── functions
-    │   │       ├── index.js
-    │   │       └── theme-rtl.js
-    │   ├── components
-    │   │   ├── MDAlert
-    │   │   ├── MDAvatar
-    │   │   ├── MDBadge
-    │   │   ├── MDBox
-    │   │   ├── MDButton
-    │   │   ├── MDInput
-    │   │   ├── MDPagination
-    │   │   ├── MDProgress
-    │   │   ├── MDSnackbar
-    │   │   └── MDTypography
-    │   ├── context
-    │   ├── examples
-    │   │   ├── Breadcrumbs
-    │   │   ├── Cards
-    │   │   ├── Charts
-    │   │   ├── Configurator
-    │   │   ├── Footer
-    │   │   ├── Items
-    │   │   ├── LayoutContainers
-    │   │   ├── Lists
-    │   │   ├── Navbars
-    │   │   ├── Sidenav
-    │   │   ├── Tables
-    │   │   └── Timeline
-    │   ├── layouts
-    │   │   ├── authentication
-    │   │   ├── billing
-    │   │   ├── dashboard
-    │   │   ├── notifications
-    │   │   ├── profile
-    │   │   ├── rtl
-    │   │   └── tables
-    │   ├── App.js
-    │   ├── index.js
-    │   └── routes.js
-    ├── .eslintrc.json
-    ├── .prettierrc.json
-    ├── CHANGELOG.md
-    ├── ISSUE_TEMPLATE.md
-    ├── jsconfig.json
-    ├── LICENSE.md
-    ├── package.json
-    └── README.md
+sbom-lens/
+├── src/
+│   ├── components/              # Reusable UI components (MDBox, MDButton, etc.)
+│   ├── examples/                # Complex component examples (Sidenav, etc.)
+│   ├── layouts/                 # Page layouts
+│   │   ├── sbom-graph/         # SBOM visualization page
+│   │   ├── sbom-vulnerabilities/# Vulnerability management page
+│   │   └── ...
+│   ├── hooks/                   # Custom React hooks
+│   ├── utils/                   # Utility functions
+│   ├── context/                 # React context providers
+│   ├── assets/                  # Images, themes, styles
+│   ├── App.js                  # Main app component
+│   ├── routes.js               # Route definitions
+│   └── index.js                # Entry point
+├── public/                      # Static files
+├── package.json                 # Project dependencies
+└── README.md                    # This file
 ```
+
+## Usage Guide
+
+### SBOM Graph Page
+
+1. **View Dependency Graph**: The graph visualization displays all components and their relationships
+2. **Zoom Controls**: Use zoom in/out buttons or scroll wheel to navigate
+3. **Add Components**: Click the "+" button to create new component nodes
+4. **Clear Graph**: Clear button removes all nodes and edges
+5. **Import SBOM**: Import existing CycloneDX JSON files
+6. **Export SBOM**: Export current graph state as CycloneDX JSON
+7. **Layout Types**: Switch between different graph layout algorithms from the toolbar
+
+### Vulnerabilities Page
+
+1. **View Vulnerabilities**: Interactive dashboard showing all tracked vulnerabilities
+2. **Change Chart View**: Toggle between stacked bar chart and donut chart visualizations
+3. **Filter by Severity**: Filter vulnerabilities by CRITICAL, HIGH, MEDIUM, or LOW
+4. **Filter by Status**: Filter by NOT_STARTED, IN_PROGRESS, or REMEDIATED
+5. **Add Vulnerability**: Click "+" to manually submit a new vulnerability
+6. **Edit Status**: Click on the status dropdown in any table row to update remediation status
+7. **Delete Entry**: Click the delete icon to remove a vulnerability entry
+8. **Export Report**: Generate and download a JSON vulnerability report
+9. **View Details**: Click CVE IDs to view full details on the National Vulnerability Database
+
+## Technology Stack
+
+- **Frontend Framework**: React 18.2.0
+- **UI Component Library**: Material-UI (MUI) 5.12.3
+- **Graph Visualization**: Cytoscape.js 3.33.1
+- **Charts**: Chart.js 4.3.0 with react-chartjs-2 5.2.0
+- **Routing**: React Router DOM 6.11.0
+- **State Management**: React Hooks (useState, useEffect, useCallback, useMemo)
+- **Data Persistence**: Browser localStorage
+- **ID Generation**: UUID 13.0.0
+- **Component Validation**: PropTypes 15.8.1
+
+## API Integration
+
+### Supported Vulnerability Sources
+
+#### NVD (National Vulnerability Database)
+- Requires: API Key
+- URL: `https://services.nvd.nist.gov/rest/json/cves/2.0`
+- Coverage: Comprehensive, government-maintained database
+
+#### GitHub Security Advisories
+- Requires: GitHub Personal Access Token
+- Uses: GraphQL API
+- Coverage: Open source vulnerabilities with GitHub context
+
+#### OSV (Open Source Vulnerabilities)
+- Requires: None (free public API)
+- URL: `https://api.osv.dev/v1/query`
+- Coverage: Aggregated OSV data from multiple sources
+
+## Data Persistence
+
+- All vulnerabilities are saved to browser localStorage under the key `sbom_vulnerabilities`
+- SBOM graph state can be exported/imported via JSON files
+- Data persists across browser sessions until manually cleared
+- Export reports include timestamp and vulnerability metadata
+
+## Component Documentation
+
+### Custom Hooks
+
+**useVulnerabilityData**
+- Manages vulnerability state with localStorage persistence
+- Provides CRUD operations: addVulnerability, updateVulnerabilityStatus, deleteVulnerability, clearAll, importVulnerabilities
+- Tracks timeline history for each vulnerability
+
+### Utility Functions
+
+**vulnerabilityAPI.js**
+- `fetchFromNVD(keyword, apiKey)` - Query NVD database
+- `fetchFromGitHub(packageName, token)` - Query GitHub advisories
+- `fetchFromOSV(purl)` - Query OSV API
+- `generatePURL(component, version, ecosystem)` - Create Package URLs
+- `fetchFromMultipleSources(components, apiKeys)` - Batch fetch with error handling
+- `normalizeSeverity(severity)` - Standardize severity scores
+
+**parseInputSBOM.js**
+- Parse and validate CycloneDX JSON format SBOMs
+- Extract component metadata
+- Initialize graph nodes and edges
+
+**cytoscapeConfig.js**
+- Cytoscape.js configuration presets
+- Layout algorithms and styling
+- Plugin initialization
+
+## Configuration
+
+### Theme Customization
+
+The application uses Material-UI theming system. Customize themes in:
+- `src/assets/theme/index.js` - Light theme
+- `src/assets/theme-dark/index.js` - Dark theme
+
+### API Keys
+
+For production use with external APIs, store API keys securely:
+1. Use environment variables (recommended)
+2. Implement secure backend proxy for API calls
+3. Never commit API keys to version control
 
 ## Browser Support
 
-At present, we officially aim to support the last two versions of the following browsers:
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Mobile browsers (iOS Safari 14+, Chrome Mobile)
 
-<img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/chrome.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/firefox.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/edge.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/safari.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/opera.png" width="64" height="64">
+## Performance Considerations
 
-## Resources
+- Large graphs (100+ nodes) may benefit from layout algorithm selection
+- Chart.js renders efficiently with memoization for datasets up to 1000 entries
+- localStorage has ~5-10MB limit depending on browser
+- Consider exporting large datasets for external analysis
 
-- [Live Preview](https://demos.creative-tim.com/material-dashboard-react/#/dashboard?ref=readme-mdr)
-- [Download Page](https://www.creative-tim.com/product/material-dashboard-react?ref=readme-mdr)
-- Documentation is [here](https://www.creative-tim.com/learning-lab/react/overview/material-dashboard/?ref=readme-mdr)
-- [License Agreement](https://www.creative-tim.com/license?ref=readme-mdr)
-- [Support](https://www.creative-tim.com/contact-us?ref=readme-mdr)
-- Issues: [Github Issues Page](https://github.com/creativetimofficial/material-dashboard-react/issues)
-- [Nepcha Analytics](https://nepcha.com?ref=readme) - Analytics tool for your website
+## Troubleshooting
 
-## Reporting Issues
+### Graph Not Displaying
+- Check browser console for JavaScript errors
+- Verify CycloneDX JSON format is valid
+- Clear browser cache and reload page
 
-We use GitHub Issues as the official bug tracker for the Material Dashboard React. Here are some advices for our users that want to report an issue:
+### Vulnerability Sync Fails
+- Verify API key/token is valid
+- Check network requests in browser DevTools
+- Ensure API endpoint URLs are accessible from your network
 
-1. Make sure that you are using the latest version of the Material Dashboard React. Check the CHANGELOG from your dashboard on our [website](https://www.creative-tim.com/product/material-dashboard-react?ref=readme-mdr).
-2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
+### Data Not Persisting
+- Check browser localStorage is enabled
+- Verify storage quota isn't exceeded
+- Check browser privacy settings aren't blocking storage
 
-## Technical Support or Questions
+## Development
 
-If you have questions or need help integrating the product please [contact us](https://www.creative-tim.com/contact-us?ref=readme-mdr) instead of opening an issue.
+### Available Scripts
 
-## Licensing
+```bash
+# Start development server with hot reload
+npm start
 
-- Copyright 2023 [Creative Tim](https://www.creative-tim.com?ref=readme-mdr)
-- Creative Tim [license](https://www.creative-tim.com/license?ref=readme-mdr)
+# Build production-optimized bundle
+npm run build
 
-## Useful Links
+# Run tests
+npm run test
 
-- [More products](https://www.creative-tim.com/templates?ref=readme-mdr) from Creative Tim
+# Eject configuration (irreversible)
+npm run eject
 
-- [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
+# Clean install dependencies
+npm run install:clean
+```
 
-- [Freebies](https://www.creative-tim.com/bootstrap-themes/free?ref=readme-mdr) from Creative Tim
+### Code Quality
 
-- [Affiliate Program](https://www.creative-tim.com/affiliates/new?ref=readme-mdr) (earn money)
+- ESLint configuration included
+- Prettier formatting for consistent code style
+- PropTypes validation for component props
+- React strict mode enabled for development
 
-##### Social Media
+## Future Enhancements
 
-Twitter: <https://twitter.com/CreativeTim>
+- [ ] Advanced filtering and search capabilities
+- [ ] Custom remediation timeline views
+- [ ] Notification and alerting system
+- [ ] Multi-source vulnerability aggregation dashboard
+- [ ] PDF report generation with custom templates
+- [ ] Real-time vulnerability updates via WebSocket
+- [ ] Role-based access control (RBAC)
+- [ ] Audit logging and compliance tracking
+- [ ] Batch SBOM processing pipeline
+- [ ] Integration with CI/CD platforms
 
-Facebook: <https://www.facebook.com/CreativeTim>
+## Contributing
 
-Dribbble: <https://dribbble.com/creativetim>
+Contributions are welcome! Please ensure:
+1. Code follows ESLint rules
+2. Components include PropTypes validation
+3. New features include documentation updates
+4. Changes don't break existing tests
 
-Google+: <https://plus.google.com/+CreativetimPage>
+## License
 
-Instagram: <https://instagram.com/creativetimofficial>
+© 2024 SBOM Lens. All rights reserved.
+
+## Support
+
+For issues, feature requests, or questions:
+1. Check existing documentation
+2. Review browser console for error messages
+3. Check GitHub Issues for similar problems
+4. Submit new issue with reproduction steps
+
+## Acknowledgments
+
+Built with:
+- [React](https://react.dev/) - UI framework
+- [Material-UI](https://mui.com/) - Component library
+- [Cytoscape.js](https://cytoscape.org/) - Graph visualization
+- [Chart.js](https://www.chartjs.org/) - Data visualization
+
+---
+
+**SBOM Lens** - Bringing clarity to your software supply chain
