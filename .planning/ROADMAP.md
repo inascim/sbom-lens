@@ -65,7 +65,11 @@ Plans:
   1. User can select one or more SBOMs via multi-select SBOMSelector at the top of the Vulnerabilities page
   2. The vulnerability table and charts update to show only vulnerabilities whose component PURLs appear in the selected SBOMs
   3. Each vulnerability row displays a "Found in: SBOM A, SBOM B" attribution listing every selected SBOM that contains the affected PURL
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — OSV fetch-on-upload: useVulnerabilityFetcher hook + vulnerabilityAPI upgrade + dashboard wiring
+- [ ] 04-02-PLAN.md — Vulnerabilities page: SBOMSelector, cross-SBOM merge/dedup, Found In column, read-only status
 
 ## Progress
 
@@ -76,4 +80,4 @@ Plans:
 | 1. Foundation | - | Complete | 2026-03-05 |
 | 2. Dashboard Integration | 2/2 | Complete    | 2026-03-05 |
 | 3. Graph Editor Integration | 1/1 | Complete   | 2026-03-06 |
-| 4. Vulnerabilities Integration | 0/TBD | Not started | - |
+| 4. Vulnerabilities Integration | 0/2 | Not started | - |
