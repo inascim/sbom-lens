@@ -1,53 +1,39 @@
 /**
  * SBOMSelector Component
  *
- * Reusable table for selecting SBOMs
- * Displays SBOM library with metadata and selection capabilities
+ * Reusable table for selecting SBOMs, built on the app's DataTable component
+ * so headers match the rest of the dashboard.
  *
  * Props:
  *   mode: "single" | "multiple" (default: "single")
  *   selectedIds: string[] (currently selected SBOM IDs)
- *   onSelectedChange: (ids: string[]) => void (callback when selection changes)
- *   onSBOMClick: (sbomId: string) => void (callback when row is clicked)
- *   onDelete: (sbomId: string) => void (callback to delete SBOM)
+ *   onSelectedChange: (ids: string[]) => void
+ *   renderRowActions: (sbom) => ReactNode  — optional; renders an Actions column
+ *   loading: bool
  */
 
+/* eslint-disable react/prop-types */
 import PropTypes from "prop-types";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Checkbox,
-  IconButton,
-  Chip,
-  Box,
-  Typography,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
+import Checkbox from "@mui/material/Checkbox";
+import Chip from "@mui/material/Chip";
+import Box from "@mui/material/Box";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import DataTable from "examples/Tables/DataTable";
 
 function SBOMSelector({
   sboms = [],
   mode = "single",
   selectedIds = [],
   onSelectedChange,
-  onSBOMClick,
-  onDelete,
+  renderRowActions,
   loading = false,
 }) {
   const handleSelectChange = (sbomId) => {
     if (mode === "single") {
-      // Single select: toggle or set
       const newSelection = selectedIds.includes(sbomId) ? [] : [sbomId];
       onSelectedChange?.(newSelection);
     } else {
-      // Multi select: toggle
       const newSelection = selectedIds.includes(sbomId)
         ? selectedIds.filter((id) => id !== sbomId)
         : [...selectedIds, sbomId];
@@ -57,10 +43,8 @@ function SBOMSelector({
 
   const handleSelectAll = () => {
     if (selectedIds.length === sboms.length) {
-      // All selected, deselect all
       onSelectedChange?.([]);
     } else {
-      // Select all
       onSelectedChange?.(sboms.map((s) => s.id));
     }
   };
@@ -83,130 +67,91 @@ function SBOMSelector({
     );
   }
 
-  return (
-    <TableContainer>
-      <Table stickyHeader>
-        <TableHead>
-          <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-            {mode === "multiple" && (
-              <TableCell padding="checkbox" sx={{ width: "50px" }}>
-                <Checkbox
-                  indeterminate={selectedIds.length > 0 && selectedIds.length < sboms.length}
-                  checked={selectedIds.length === sboms.length && sboms.length > 0}
-                  onChange={handleSelectAll}
-                />
-              </TableCell>
-            )}
-            {mode === "single" && <TableCell sx={{ width: "50px" }} />}
-            <TableCell>
-              <MDTypography variant="caption" fontWeight="bold">
-                SBOM Name
-              </MDTypography>
-            </TableCell>
-            <TableCell align="center">
-              <MDTypography variant="caption" fontWeight="bold">
-                Components
-              </MDTypography>
-            </TableCell>
-            <TableCell align="center">
-              <MDTypography variant="caption" fontWeight="bold">
-                Created
-              </MDTypography>
-            </TableCell>
-            <TableCell align="center">
-              <MDTypography variant="caption" fontWeight="bold">
-                Modified
-              </MDTypography>
-            </TableCell>
-            <TableCell align="center">
-              <MDTypography variant="caption" fontWeight="bold">
-                Actions
-              </MDTypography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sboms.map((sbom) => {
-            const isSelected = selectedIds.includes(sbom.id);
-            const createdDate = new Date(sbom.createdAt).toLocaleDateString();
-            const modifiedDate = new Date(sbom.modifiedAt).toLocaleDateString();
+  const columns = [
+    {
+      id: "select",
+      accessor: (row) => row.id,
+      Header:
+        mode === "multiple" ? (
+          <Checkbox
+            indeterminate={selectedIds.length > 0 && selectedIds.length < sboms.length}
+            checked={selectedIds.length === sboms.length && sboms.length > 0}
+            onChange={handleSelectAll}
+          />
+        ) : (
+          " "
+        ),
+      width: "50px",
+      Cell: ({ value }) => (
+        <Checkbox
+          checked={selectedIds.includes(value)}
+          onChange={() => handleSelectChange(value)}
+          onClick={(e) => e.stopPropagation()}
+        />
+      ),
+    },
+    {
+      Header: "SBOM Name",
+      accessor: "name",
+      Cell: ({ row }) => (
+        <MDTypography
+          variant="body2"
+          fontWeight={selectedIds.includes(row.original.id) ? "bold" : "regular"}
+        >
+          {row.original.name}
+        </MDTypography>
+      ),
+    },
+    {
+      Header: "Components",
+      accessor: "components",
+      align: "center",
+      Cell: ({ value }) => (
+        <Chip label={value?.length || 0} color="info" variant="outlined" size="small" />
+      ),
+    },
+    {
+      Header: "Created",
+      accessor: "createdAt",
+      align: "center",
+      Cell: ({ value }) => (
+        <MDTypography variant="caption">{new Date(value).toLocaleDateString()}</MDTypography>
+      ),
+    },
+    {
+      Header: "Modified",
+      accessor: "modifiedAt",
+      align: "center",
+      Cell: ({ value }) => (
+        <MDTypography variant="caption">{new Date(value).toLocaleDateString()}</MDTypography>
+      ),
+    },
+    ...(renderRowActions
+      ? [
+          {
+            id: "actions",
+            accessor: (row) => row,
+            Header: "Actions",
+            align: "center",
+            disableSortBy: true,
+            Cell: ({ value }) => (
+              <Box display="flex" gap={0.5} justifyContent="center">
+                {renderRowActions(value)}
+              </Box>
+            ),
+          },
+        ]
+      : []),
+  ];
 
-            return (
-              <TableRow
-                key={sbom.id}
-                selected={isSelected}
-                hover
-                sx={{
-                  backgroundColor: isSelected ? "rgba(25, 118, 210, 0.08)" : "inherit",
-                  cursor: "pointer",
-                }}
-              >
-                {mode === "multiple" && (
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      onChange={() => handleSelectChange(sbom.id)}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </TableCell>
-                )}
-                {mode === "single" && (
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isSelected}
-                      onChange={() => handleSelectChange(sbom.id)}
-                      onClick={(e) => e.stopPropagation()}
-                      radio
-                    />
-                  </TableCell>
-                )}
-                <TableCell
-                  onClick={() => onSBOMClick?.(sbom.id)}
-                  sx={{ fontWeight: isSelected ? 600 : 400 }}
-                >
-                  <MDTypography variant="body2" fontWeight={isSelected ? "bold" : "regular"}>
-                    {sbom.name}
-                  </MDTypography>
-                </TableCell>
-                <TableCell align="center">
-                  <Chip
-                    label={sbom.components?.length || 0}
-                    color="info"
-                    variant="outlined"
-                    size="small"
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <MDTypography variant="caption">{createdDate}</MDTypography>
-                </TableCell>
-                <TableCell align="center">
-                  <MDTypography variant="caption">{modifiedDate}</MDTypography>
-                </TableCell>
-                <TableCell align="center">
-                  <Box display="flex" gap={0.5} justifyContent="center">
-                    <IconButton
-                      size="small"
-                      onClick={() => onSBOMClick?.(sbom.id)}
-                      title="View/Edit SBOM"
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      color="error"
-                      onClick={() => onDelete?.(sbom.id)}
-                      title="Delete SBOM"
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+  return (
+    <DataTable
+      table={{ columns, rows: sboms }}
+      entriesPerPage={false}
+      showTotalEntries={false}
+      isSorted={false}
+      noEndBorder
+    />
   );
 }
 
@@ -223,8 +168,7 @@ SBOMSelector.propTypes = {
   mode: PropTypes.oneOf(["single", "multiple"]),
   selectedIds: PropTypes.arrayOf(PropTypes.string),
   onSelectedChange: PropTypes.func,
-  onSBOMClick: PropTypes.func,
-  onDelete: PropTypes.func,
+  renderRowActions: PropTypes.func,
   loading: PropTypes.bool,
 };
 

@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import Icon from "@mui/material/Icon";
 import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -20,7 +21,7 @@ import Footer from "examples/Footer";
 // Graph
 import GraphVisualizer from "./components/GraphVisualizer";
 import SBOMSelector from "components/SBOMSelector";
-import useSBOMLibrary from "hooks/useSBOMLibrary";
+import { useSBOMLibrary } from "hooks/useSBOMLibrary";
 
 function SbomGraph() {
   const graphRef = useRef(null);
@@ -131,13 +132,12 @@ function SbomGraph() {
     setIsDirty(true);
   };
 
-  const handleLoad = () => {
-    if (selectedIds.length === 0) return;
+  const handleLoad = (sbomId) => {
     if (isDirty) {
       const ok = window.confirm("You have unsaved changes. Load a new SBOM and discard them?");
       if (!ok) return;
     }
-    const sbom = getSBOM(selectedIds[0]);
+    const sbom = getSBOM(sbomId);
     if (!sbom) return;
     const graphData = convertCycloneDXToGraph({
       components: sbom.components ?? [],
@@ -212,18 +212,14 @@ function SbomGraph() {
             mode="single"
             selectedIds={selectedIds}
             onSelectedChange={setSelectedIds}
+            renderRowActions={(sbom) => (
+              <Tooltip title="Load into graph">
+                <IconButton size="small" color="info" onClick={() => handleLoad(sbom.id)}>
+                  <Icon>play_arrow</Icon>
+                </IconButton>
+              </Tooltip>
+            )}
           />
-          <MDBox display="flex" justifyContent="flex-end" mt={1}>
-            <MDButton
-              variant="gradient"
-              color="info"
-              size="small"
-              disabled={selectedIds.length === 0}
-              onClick={handleLoad}
-            >
-              Load
-            </MDButton>
-          </MDBox>
         </MDBox>
         {/* Main card: toolbar + canvas */}
         <Card sx={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
@@ -367,7 +363,15 @@ function SbomGraph() {
                 </MDButton>
               </Tooltip>
               <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
-              <Tooltip title={!loadedSBOM ? "No SBOM loaded" : !isDirty ? "No changes to save" : "Save changes to library"}>
+              <Tooltip
+                title={
+                  !loadedSBOM
+                    ? "No SBOM loaded"
+                    : !isDirty
+                    ? "No changes to save"
+                    : "Save changes to library"
+                }
+              >
                 <span>
                   <MDButton
                     variant="gradient"
@@ -381,7 +385,15 @@ function SbomGraph() {
                   </MDButton>
                 </span>
               </Tooltip>
-              <Tooltip title={sboms.length >= 3 ? "Library full (3 SBOMs max)" : !loadedSBOM ? "No SBOM loaded" : "Save as new SBOM"}>
+              <Tooltip
+                title={
+                  sboms.length >= 3
+                    ? "Library full (3 SBOMs max)"
+                    : !loadedSBOM
+                    ? "No SBOM loaded"
+                    : "Save as new SBOM"
+                }
+              >
                 <span>
                   <MDButton
                     variant="gradient"
