@@ -19,6 +19,8 @@ import Footer from "examples/Footer";
 
 // Graph
 import GraphVisualizer from "./components/GraphVisualizer";
+import SBOMSelector from "components/SBOMSelector";
+import useSBOMLibrary from "hooks/useSBOMLibrary";
 
 function SbomGraph() {
   const graphRef = useRef(null);
@@ -26,6 +28,11 @@ function SbomGraph() {
   const [newGraphData, setNewGraphData] = useState({});
   const [stats, setStats] = useState({ nodes: 0, edges: 0, depth: 0 });
   const [zoom, setZoom] = useState(100);
+
+  const { sboms, getSBOM, uploadSBOM, modifySBOM } = useSBOMLibrary();
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [loadedSBOM, setLoadedSBOM] = useState(null);
+  const [isDirty, setIsDirty] = useState(false);
 
   // Update stats whenever graph data changes
   useEffect(() => {
@@ -50,6 +57,11 @@ function SbomGraph() {
     setTimeout(() => setZoom(graphRef.current?.getZoom() ?? 100), 50);
   };
 
+  const loadGraph = (graphData) => {
+    setNewGraphData(graphData);
+    setIsDirty(false);
+  };
+
   const handleImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -58,7 +70,8 @@ function SbomGraph() {
       try {
         const json = JSON.parse(event.target.result);
         const graphData = convertCycloneDXToGraph(json);
-        setNewGraphData(graphData);
+        loadGraph(graphData);
+        setLoadedSBOM(null);
       } catch {
         console.error("Invalid CycloneDX JSON file");
       }
@@ -115,6 +128,24 @@ function SbomGraph() {
       nodes: [...(prev.nodes || []), newNode],
       edges: prev.edges || [],
     }));
+    setIsDirty(true);
+  };
+
+  const handleLoad = () => {
+    if (selectedIds.length === 0) return;
+    if (isDirty) {
+      const ok = window.confirm("You have unsaved changes. Load a new SBOM and discard them?");
+      if (!ok) return;
+    }
+    const sbom = getSBOM(selectedIds[0]);
+    if (!sbom) return;
+    const graphData = convertCycloneDXToGraph({
+      components: sbom.components ?? [],
+      metadata: sbom.metadata ?? {},
+      dependencies: sbom.dependencies ?? [],
+    });
+    loadGraph(graphData);
+    setLoadedSBOM(sbom);
   };
 
   return (
@@ -137,7 +168,25 @@ function SbomGraph() {
             Visualize and explore the dependency graph of your Software Bill of Materials.
           </MDTypography>
         </MDBox>
-
+        <MDBox mb={2}>
+          <SBOMSelector
+            sboms={sboms}
+            mode="single"
+            selectedIds={selectedIds}
+            onSelectedChange={setSelectedIds}
+          />
+          <MDBox display="flex" justifyContent="flex-end" mt={1}>
+            <MDButton
+              variant="gradient"
+              color="info"
+              size="small"
+              disabled={selectedIds.length === 0}
+              onClick={handleLoad}
+            >
+              Load
+            </MDButton>
+          </MDBox>
+        </MDBox>
         {/* Main card: toolbar + canvas */}
         <Card sx={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
           {/* Toolbar */}
