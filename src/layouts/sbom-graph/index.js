@@ -148,6 +148,44 @@ function SbomGraph() {
     setLoadedSBOM(sbom);
   };
 
+  const handleSave = async () => {
+    if (!loadedSBOM) return;
+    const nodes = graphRef.current?.getAllNodes() ?? [];
+    const edges = graphRef.current?.getAllEdges() ?? [];
+    const cycloneDX = convertGraphToCycloneDX(nodes, edges);
+    await modifySBOM(loadedSBOM.id, {
+      components: cycloneDX.components ?? [],
+      metadata: cycloneDX.metadata ?? {},
+      dependencies: cycloneDX.dependencies ?? [],
+    });
+    setIsDirty(false);
+  };
+
+  const handleSaveAs = async () => {
+    if (!loadedSBOM || sboms.length >= 3) return;
+    const nodes = graphRef.current?.getAllNodes() ?? [];
+    const edges = graphRef.current?.getAllEdges() ?? [];
+    const cycloneDX = convertGraphToCycloneDX(nodes, edges);
+    const metadata = {
+      ...(cycloneDX.metadata ?? {}),
+      copyOf: loadedSBOM.id,
+    };
+    const result = await uploadSBOM({
+      name: `${loadedSBOM.name} (edited)`,
+      components: cycloneDX.components ?? [],
+      metadata,
+      dependencies: cycloneDX.dependencies ?? [],
+    });
+    if (result?.isDuplicate) {
+      window.alert("No changes detected. Edit the graph before saving as a new SBOM.");
+      return;
+    }
+    if (result?.sbom) {
+      setLoadedSBOM(result.sbom);
+      setIsDirty(false);
+    }
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -328,6 +366,35 @@ function SbomGraph() {
                   Export
                 </MDButton>
               </Tooltip>
+              <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+              <Tooltip title={!loadedSBOM ? "No SBOM loaded" : !isDirty ? "No changes to save" : "Save changes to library"}>
+                <span>
+                  <MDButton
+                    variant="gradient"
+                    color="success"
+                    size="small"
+                    startIcon={<Icon>save</Icon>}
+                    disabled={!loadedSBOM || !isDirty}
+                    onClick={handleSave}
+                  >
+                    Save
+                  </MDButton>
+                </span>
+              </Tooltip>
+              <Tooltip title={sboms.length >= 3 ? "Library full (3 SBOMs max)" : !loadedSBOM ? "No SBOM loaded" : "Save as new SBOM"}>
+                <span>
+                  <MDButton
+                    variant="gradient"
+                    color="warning"
+                    size="small"
+                    startIcon={<Icon>save_as</Icon>}
+                    disabled={!loadedSBOM || sboms.length >= 3}
+                    onClick={handleSaveAs}
+                  >
+                    Save As
+                  </MDButton>
+                </span>
+              </Tooltip>
             </MDBox>
           </MDBox>
 
@@ -362,6 +429,7 @@ function SbomGraph() {
             sx={{ borderTop: "1px solid", borderColor: "grey.200" }}
           >
             <MDTypography variant="caption" color="text">
+              {loadedSBOM ? `${loadedSBOM.name}${isDirty ? " *" : ""}  |  ` : ""}
               Nodes: {stats.nodes}&nbsp;&nbsp;|&nbsp;&nbsp;Edges: {stats.edges}
               &nbsp;&nbsp;|&nbsp;&nbsp;Depth: {stats.depth}
             </MDTypography>
