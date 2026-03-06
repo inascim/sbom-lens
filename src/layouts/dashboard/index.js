@@ -24,6 +24,7 @@ import SBOMUploader from "components/SBOMUploader";
 import SBOMCard from "layouts/dashboard/components/SBOMCard";
 import { useSBOMLibrary } from "hooks/useSBOMLibrary";
 import { useVulnerabilities } from "hooks/useVulnerabilities";
+import { useVulnerabilityFetcher } from "hooks/useVulnerabilityFetcher";
 
 function Dashboard() {
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
@@ -33,6 +34,7 @@ function Dashboard() {
 
   const { sboms, loading, error, uploadSBOM, removeSBOM, getStats } = useSBOMLibrary();
   const { vulnerabilities } = useVulnerabilities();
+  const { fetchVulnsForSBOM } = useVulnerabilityFetcher();
   const stats = getStats();
   const totalVulns = vulnerabilities.length;
   const unresolvedVulns = vulnerabilities.filter((v) => v.status !== "REMEDIATED").length;
@@ -46,6 +48,8 @@ function Dashboard() {
         setDuplicateInfo(result);
       } else {
         setUploadDialogOpen(false);
+        // Fire-and-forget: fetch vulns for uploaded SBOM; does not block dialog close
+        fetchVulnsForSBOM(result.sbom?.components || sbomData.components || []);
       }
     } finally {
       setUploading(false);
