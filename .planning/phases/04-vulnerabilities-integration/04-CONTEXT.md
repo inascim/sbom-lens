@@ -6,7 +6,7 @@
 <domain>
 ## Phase Boundary
 
-Add a multi-SBOM filter to the existing Vulnerabilities page. Users select which SBOMs to scope the view to; the table and chart both respond. Vulnerability rows are deduplicated by CVE ID + PURL and show "Found in" chips for cross-SBOM attribution. No new vulnerability management features — just SBOM-aware filtering and attribution.
+Add a multi-SBOM filter to the existing Vulnerabilities page and enrich the library with real vulnerability data fetched on upload. When an SBOM is added to the library, its component PURLs are queried against OSV.dev (with NVD as fallback) and the results are stored alongside any manually-added vulnerabilities. The Vulnerabilities page gains SBOM-aware filtering: users select which SBOMs to scope the view to; the table and chart both respond. Vulnerability rows are deduplicated by CVE ID + PURL and show "Found in" chips for cross-SBOM attribution.
 
 </domain>
 
@@ -39,6 +39,14 @@ Add a multi-SBOM filter to the existing Vulnerabilities page. Users select which
 - When no SBOM selected, chart shows totals across all vulns (same as today)
 - When SBOMs selected, chart recalculates from filtered/merged vuln set only
 
+### Vulnerability data source
+- Real vulnerability data is fetched **on upload** (when an SBOM is added to the library via SBOMUploader)
+- Primary source: **OSV.dev** REST API (`https://api.osv.dev/v1/query`) — no API key required, accepts PURL queries natively
+- Fallback source: **NVD** (National Vulnerability Database) — used if OSV.dev returns no results or is unavailable
+- Fetched results are stored in the vulnerability store with `source: "osv"` or `source: "nvd"`
+- Manually-added vulnerabilities retain `source: "manual"` and are preserved alongside fetched ones
+- Deduplication key (CVE ID + PURL) applies across both manual and fetched records — fetched data does not overwrite manual entries
+
 </decisions>
 
 <code_context>
@@ -60,6 +68,8 @@ Add a multi-SBOM filter to the existing Vulnerabilities page. Users select which
 ### Integration Points
 - `src/layouts/sbom-vulnerabilities/index.js` — add `selectedSBOMIds` state, mount `useSBOMLibrary`, add SBOMSelector above Card, pipe filtered+merged vuln set to both Chart and Table
 - `VulnerabilityTable` — add "Found In" column; make status cell read-only when `sbomNames.length > 1`
+- `hooks/useVulnerabilities` or new `hooks/useVulnerabilityFetcher` — OSV.dev + NVD fetch logic triggered on SBOM upload; stores results keyed by PURL + CVE ID with source tag
+- `SBOMUploader` or its caller — trigger vuln fetch after successful SBOM parse and store
 
 </code_context>
 
