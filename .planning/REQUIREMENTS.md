@@ -15,9 +15,9 @@
 
 ### Graph Editor
 
-- [ ] **GRAPH-01**: User can select which SBOM to load in the Graph Editor via SBOMSelector
-- [ ] **GRAPH-02**: User can save edits back to the selected SBOM (overwrite)
-- [ ] **GRAPH-03**: User can save edits as a new SBOM in the library (Save As), if under the 3-SBOM limit
+- [x] **GRAPH-01**: User can select which SBOM to load in the Graph Editor via SBOMSelector
+- [x] **GRAPH-02**: User can save edits back to the selected SBOM (overwrite)
+- [x] **GRAPH-03**: User can save edits as a new SBOM in the library (Save As), if under the 3-SBOM limit
 
 ### Vulnerabilities
 
@@ -55,9 +55,9 @@
 | DASH-03 | Phase 2 | Complete |
 | DASH-04 | Phase 2 | Complete |
 | DASH-05 | Phase 2 | Complete |
-| GRAPH-01 | Phase 3 | Pending |
-| GRAPH-02 | Phase 3 | Pending |
-| GRAPH-03 | Phase 3 | Pending |
+| GRAPH-01 | Phase 3 | Complete |
+| GRAPH-02 | Phase 3 | Complete |
+| GRAPH-03 | Phase 3 | Complete |
 | VULN-01 | Phase 4 | Pending |
 | VULN-02 | Phase 4 | Pending |
 | VULN-03 | Phase 4 | Pending |

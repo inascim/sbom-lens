@@ -12,7 +12,7 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
 
 - [x] **Phase 1: Foundation** - Data layer, hooks, SBOMSelector, SBOMUploader (COMPLETE)
 - [x] **Phase 2: Dashboard Integration** - Wire SBOM library stats, cards, and upload flow into the Dashboard page (completed 2026-03-05)
-- [ ] **Phase 3: Graph Editor Integration** - Add SBOMSelector to Graph Editor; implement Save and Save As against the library
+- [x] **Phase 3: Graph Editor Integration** - Add SBOMSelector to Graph Editor; implement Save and Save As against the library (completed 2026-03-06)
 - [ ] **Phase 4: Vulnerabilities Integration** - Add multi-SBOM selector, merged vulnerability view, and cross-SBOM attribution
 
 ## Phase Details
@@ -42,7 +42,7 @@ Phase 1 (data layer, hooks, SBOMSelector, SBOMUploader) is complete. The remaini
 
 Plans:
 - [x] 02-01-PLAN.md — Fix getStats() mutation bug + create SBOMCard component
-- [ ] 02-02-PLAN.md — Replace dashboard/index.js with live SBOM library home page
+- [x] 02-02-PLAN.md — Replace dashboard/index.js with live SBOM library home page
 
 ### Phase 3: Graph Editor Integration
 **Goal**: Users can open any library SBOM in the Graph Editor and save edits back to the library
@@ -52,7 +52,10 @@ Plans:
   1. User can pick an SBOM from the library via SBOMSelector inside the Graph Editor and have its dependency graph rendered
   2. User can save edits to the currently loaded SBOM, overwriting it in the library
   3. User can save the edited graph as a new SBOM (Save As), provided fewer than 3 SBOMs are stored; the action is disabled or blocked when the library is full
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 03-01-PLAN.md — Wire SBOMSelector, Load, Save, and Save As into the Graph Editor
 
 ### Phase 4: Vulnerabilities Integration
 **Goal**: Users can filter the Vulnerabilities view by SBOM and see a deduplicated, cross-SBOM vulnerability picture
@@ -71,6 +74,6 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | - | Complete | 2026-03-05 |
-| 2. Dashboard Integration | 2/2 | Complete   | 2026-03-05 |
-| 3. Graph Editor Integration | 0/TBD | Not started | - |
+| 2. Dashboard Integration | 2/2 | Complete    | 2026-03-05 |
+| 3. Graph Editor Integration | 1/1 | Complete   | 2026-03-06 |
 | 4. Vulnerabilities Integration | 0/TBD | Not started | - |
